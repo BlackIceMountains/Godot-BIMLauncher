@@ -26,7 +26,7 @@ func _enter_tree():
 
 	add_autoload_singleton(BIMSpawnerName, "res://addons/bim_launcher/spawning/bim_spawner.gd")
 	add_debugger_plugin(_spawnpoint_debugger_plugin)
-	print("Registered debugger plugin!")
+	print_verbose("[bim_launcher] Registered debugger plugin!")
 
 	var spawn_points := PopupMenu.new()
 	for spawn_point_text in _spawn_points_texts:

@@ -39,6 +39,6 @@ func teleport_to_spawn_point(node: Node3D):
 	await wait_spawnpoint_data_ready()
 
 	if spawnpoint_data != null:
-		print("Teleporting player to spawn point")
+		print_verbose("[bim_spawner] Teleporting player to spawn point")
 		node.global_position = spawnpoint_data.transform.origin
 		node.global_rotation.y = spawnpoint_data.transform.basis.get_euler().y
