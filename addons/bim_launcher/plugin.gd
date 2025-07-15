@@ -109,9 +109,13 @@ func _update_editor_camera_cache() -> void:
 	assert(not edited_scene_root.scene_file_path.is_empty(), "Trying to cache editor camera for scene without path, this should not be possible.")
 
 	var scene_resource_uid: int = ResourceLoader.get_resource_uid(edited_scene_root.scene_file_path)
-	assert(scene_resource_uid != -1, "Trying to cache editor camera for scene "+edited_scene_root.scene_file_path+" and for some reason it has no resource UID. Godot bug?")
+	assert(scene_resource_uid != -1, "Trying to cache editor camera for scene " + edited_scene_root.scene_file_path + " and for some reason it has no resource UID. Godot bug?")
 
 	_editor_camera_3d_cache[ResourceUID.id_to_text(scene_resource_uid)] = get_editor_interface().get_editor_viewport_3d(0).get_camera_3d().global_transform
+
+	# Cache also the full resource path. For some reason when playing current scene the get_editor_interface().get_playing_scene()
+	# still returns the absolute path and not uid:// path as of Godot 4.4.1.
+	_editor_camera_3d_cache[edited_scene_root.scene_file_path] = get_editor_interface().get_editor_viewport_3d(0).get_camera_3d().global_transform
 
 	_config.set_value("editor_spawn_point", "_editor_camera_3d_cache", _editor_camera_3d_cache)
 	_save_plugin_config()
